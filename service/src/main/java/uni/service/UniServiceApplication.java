@@ -4,6 +4,8 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import uni.data.Fetcher;
+import uni.data.FetcherThread;
 import uni.data.NewsDAO;
 
 import javax.servlet.DispatcherType;
@@ -39,6 +41,8 @@ public class UniServiceApplication extends Application<UniServiceConfiguration> 
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
-        environment.jersey().register(new NewsResource(new NewsDAO(configuration.getJdbcConnectionUrl())));
+        NewsDAO newsDao = new NewsDAO(configuration.getJdbcConnectionUrl());
+        environment.jersey().register(new NewsResource(newsDao));
+        new FetcherThread(new Fetcher(newsDao), configuration.getCheckInterval()).start();
     }
 }
