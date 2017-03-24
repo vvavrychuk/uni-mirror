@@ -1,0 +1,17 @@
+<body>
+    <h1>News</h1>
+    <ul id="news-list"></ul>
+</body>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script>
+    $.getJSON("http://0.0.0.0:8080/news", function(data) {
+        $.each(data, function(key, val) {
+            var item = $("<a>").attr("href", val.url).text(val.title);
+            item = $("<li>").append(item);
+            $("#news-list").append(item);
+        });
+    });
+</script>
