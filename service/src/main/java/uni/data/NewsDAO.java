@@ -40,19 +40,9 @@ public class NewsDAO {
     }
 
     public boolean addIfNotExists(News news) {
-        try {
-            Statement stmt = connection.createStatement();
-            try {
-                stmt.executeUpdate("INSERT INTO news(url, title) VALUES ('" +
-                        news.getUrl() + "', '" + news.getTitle() + "')");
-                return true;
-            } catch (PSQLException error) {
-                if ((error.getServerErrorMessage().getConstraint() != null) &&
-                        (error.getServerErrorMessage().getConstraint().equals("news_url_key")))
-                    return false;
-                else
-                    throw error;
-            }
+        try (Statement stmt = connection.createStatement()) {
+            return stmt.executeUpdate("INSERT INTO news(url, title) VALUES ('" +
+                    news.getUrl() + "', '" + news.getTitle() + "') ON CONFLICT(url) DO NOTHING") > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
