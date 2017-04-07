@@ -8,6 +8,12 @@ public class UniServiceConfiguration extends Configuration {
     @NotEmpty
     private String jdbcConnectionUrl;
 
+    @NotEmpty
+    private String jdbcConnectionUser;
+
+    @NotEmpty
+    private String jdbcConnectionPassword;
+
     private int checkInterval;
 
     @JsonProperty
@@ -18,6 +24,26 @@ public class UniServiceConfiguration extends Configuration {
     @JsonProperty
     public void setJdbcConnectionUrl(String jdbcConnectionUrl) {
         this.jdbcConnectionUrl = jdbcConnectionUrl;
+    }
+
+    @JsonProperty
+    public String getJdbcConnectionUser() {
+        return jdbcConnectionUser;
+    }
+
+    @JsonProperty
+    public void setJdbcConnectionUser(String jdbcConnectionUser) {
+        this.jdbcConnectionUser = jdbcConnectionUser;
+    }
+
+    @JsonProperty
+    public String getJdbcConnectionPassword() {
+        return jdbcConnectionPassword;
+    }
+
+    @JsonProperty
+    public void setJdbcConnectionPassword(String jdbcConnectionPassword) {
+        this.jdbcConnectionPassword = jdbcConnectionPassword;
     }
 
     @JsonProperty

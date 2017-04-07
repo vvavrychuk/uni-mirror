@@ -18,12 +18,8 @@ public class NewsDAO {
         }
     }
 
-    public NewsDAO(String connectionUrl) {
-        try {
-            connection = DriverManager.getConnection(connectionUrl);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public NewsDAO(Connection connection) {
+        this.connection = connection;
     }
 
     public List<News> getAll() {

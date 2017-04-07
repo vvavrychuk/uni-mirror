@@ -10,8 +10,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="service" target="1.5" />
-      <module name="uni-mirror" target="1.5" />
+      <module name="service" target="1.8" />
+      <module name="uni-mirror" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
