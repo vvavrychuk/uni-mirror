@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import uni.service.News;
 
 import java.util.logging.Logger;
@@ -17,8 +18,10 @@ public class Fetcher {
         this.newsDAO = newsDAO;
     }
 
-    public void fetch() {
-        WebDriver driver = new ChromeDriver();
+    void fetch() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        WebDriver driver = new ChromeDriver(options);
         driver.get("http://www.lnu.edu.ua/news/category/notices/");
         int addedCount = 0, alreadyExistsCount = 0;
         for (WebElement news : driver.findElements(By.className("post-title"))) {
