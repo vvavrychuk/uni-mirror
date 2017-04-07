@@ -15,7 +15,7 @@ public class FetcherThread extends Thread {
 
     @Override
     public void run() {
-        while (isInterrupted()) {
+        while (!isInterrupted()) {
             logger.info("Starting fetch...");
             fetcher.fetch();
             logger.info("Finished fetch.");
