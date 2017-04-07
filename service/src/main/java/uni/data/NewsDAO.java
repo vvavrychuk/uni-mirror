@@ -48,7 +48,7 @@ public class NewsDAO {
                 return true;
             } catch (PSQLException error) {
                 if ((error.getServerErrorMessage().getConstraint() != null) &&
-                        (error.getServerErrorMessage().getConstraint().equals("url")))
+                        (error.getServerErrorMessage().getConstraint().equals("news_url_key")))
                     return false;
                 else
                     throw error;
