@@ -96,6 +96,9 @@
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-access:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.argparse4j:argparse4j:0.7.0" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty.toolchain.setuid:jetty-setuid-java:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-db:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-jdbc:8.5.9" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-juli:8.5.9" level="project" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.0.0.jre7" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-java:3.3.1" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-chrome-driver:3.3.1" level="project" />

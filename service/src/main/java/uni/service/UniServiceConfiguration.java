@@ -2,48 +2,27 @@ package uni.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
+import io.dropwizard.db.DataSourceFactory;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public class UniServiceConfiguration extends Configuration {
-    @NotEmpty
-    private String jdbcConnectionUrl;
-
-    @NotEmpty
-    private String jdbcConnectionUser;
-
-    @NotEmpty
-    private String jdbcConnectionPassword;
+    @Valid
+    @NotNull
+    private DataSourceFactory database = new DataSourceFactory();
 
     private int checkInterval;
 
-    @JsonProperty
-    public String getJdbcConnectionUrl() {
-        return jdbcConnectionUrl;
+    @JsonProperty("database")
+    public void setDataSourceFactory(DataSourceFactory factory) {
+        this.database = factory;
     }
 
-    @JsonProperty
-    public void setJdbcConnectionUrl(String jdbcConnectionUrl) {
-        this.jdbcConnectionUrl = jdbcConnectionUrl;
-    }
-
-    @JsonProperty
-    public String getJdbcConnectionUser() {
-        return jdbcConnectionUser;
-    }
-
-    @JsonProperty
-    public void setJdbcConnectionUser(String jdbcConnectionUser) {
-        this.jdbcConnectionUser = jdbcConnectionUser;
-    }
-
-    @JsonProperty
-    public String getJdbcConnectionPassword() {
-        return jdbcConnectionPassword;
-    }
-
-    @JsonProperty
-    public void setJdbcConnectionPassword(String jdbcConnectionPassword) {
-        this.jdbcConnectionPassword = jdbcConnectionPassword;
+    @JsonProperty("database")
+    public DataSourceFactory getDataSourceFactory() {
+        return database;
     }
 
     @JsonProperty

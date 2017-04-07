@@ -1,6 +1,7 @@
 package uni.service;
 
 import io.dropwizard.Application;
+import io.dropwizard.db.ManagedDataSource;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -51,9 +52,9 @@ public class UniServiceApplication extends Application<UniServiceConfiguration> 
         configureCors(environment);
 
         try (Migration migration = new Migration(
-                configuration.getJdbcConnectionUrl(),
-                configuration.getJdbcConnectionUser(),
-                configuration.getJdbcConnectionPassword())) {
+                configuration.getDataSourceFactory().getUrl(),
+                configuration.getDataSourceFactory().getUser(),
+                configuration.getDataSourceFactory().getPassword())) {
             migration.migrate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -62,12 +63,8 @@ public class UniServiceApplication extends Application<UniServiceConfiguration> 
         }
 
         try {
-            Connection connection = DriverManager.getConnection(
-                    configuration.getJdbcConnectionUrl(),
-                    configuration.getJdbcConnectionUser(),
-                    configuration.getJdbcConnectionPassword()
-            );
-            NewsDAO newsDao = new NewsDAO(connection);
+            ManagedDataSource dataSource = configuration.getDataSourceFactory().build(environment.metrics(), "postgresql");
+            NewsDAO newsDao = new NewsDAO(dataSource.getConnection());
             environment.jersey().register(new NewsResource(newsDao));
             new FetcherThread(new Fetcher(newsDao), configuration.getCheckInterval()).start();
         } catch (SQLException e) {

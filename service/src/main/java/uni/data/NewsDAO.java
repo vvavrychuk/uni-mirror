@@ -10,14 +10,6 @@ import java.util.List;
 public class NewsDAO {
     private Connection connection;
 
-    static {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public NewsDAO(Connection connection) {
         this.connection = connection;
     }
